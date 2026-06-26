@@ -721,6 +721,57 @@
       box-shadow: 0 0 12px rgba(85,255,139,.2);
     }
 
+    .start-workout-panel {
+      display: grid;
+      gap: 10px;
+      align-content: start;
+    }
+
+    .start-workout-main {
+      width: 100%;
+      min-height: 118px;
+      border-width: 2px;
+      border-color: var(--line-hot);
+      background: var(--hot);
+      color: #06160b;
+      font-size: clamp(24px, 3.4vw, 46px);
+      font-weight: 800;
+      box-shadow: 0 0 26px rgba(85,255,139,.34);
+    }
+
+    .start-workout-meta {
+      display: grid;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .start-workout-meta strong {
+      color: var(--hot);
+      font-weight: 700;
+    }
+
+    .start-workout-copy {
+      border-top: 1px solid rgba(58,255,126,.22);
+      padding-top: 9px;
+      color: var(--text);
+      font-size: 12px;
+    }
+
+    .post-workout-notes {
+      margin-top: 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 12px;
+      background: rgba(0, 18, 8, 0.82);
+    }
+
+    .post-workout-notes textarea {
+      min-height: 104px;
+      margin-top: 8px;
+    }
+
     .status-line {
       margin-top: 8px;
       color: var(--muted);
@@ -1275,12 +1326,15 @@
           <div class="eq" id="eq"></div>
         </section>
 
-        <section class="mini-card">
-          <h2 class="panel-title">// NOTES</h2>
-          <textarea id="notes" placeholder="How did the session feel?
-What could be better next time?
-Log any wins."></textarea>
-          <div class="status-line" id="saveStatus">Saved</div>
+        <section class="mini-card start-workout-panel">
+          <h2 class="panel-title">// START WORKOUT</h2>
+          <button id="startWorkoutPanel" class="start-workout-main" type="button">START WORKOUT</button>
+          <div class="start-workout-meta">
+            <div>• Today's workout: <strong id="startWorkoutName">Upper Hypertrophy + Arms</strong></div>
+            <div>• Estimated workout time: <strong id="startWorkoutTime">45-60 MIN</strong></div>
+            <div>• Current workout streak: <strong id="startWorkoutStreak">1 SESSION</strong></div>
+          </div>
+          <div class="start-workout-copy">When you're ready, begin Workout Mode.</div>
         </section>
       </aside>
     </main>
@@ -1369,6 +1423,13 @@ Log any wins."></textarea>
       <div>
         <h2>MISSION COMPLETE</h2>
         <p>Nice work.</p>
+        <div class="post-workout-notes">
+          <div class="wm-label">Notes After Workout</div>
+          <textarea id="notes" placeholder="How did the session feel?
+What could be better next time?
+Log any wins."></textarea>
+          <div class="status-line" id="saveStatus">Saved</div>
+        </div>
       </div>
       <div class="wm-complete-actions">
         <button id="wmLogWorkout" type="button">Log Workout</button>
@@ -1515,6 +1576,10 @@ Log any wins."></textarea>
       dadModal: document.getElementById("dadModal"),
       sfxToggle: document.getElementById("sfxToggle"),
       startWorkout: document.getElementById("startWorkout"),
+      startWorkoutPanel: document.getElementById("startWorkoutPanel"),
+      startWorkoutName: document.getElementById("startWorkoutName"),
+      startWorkoutTime: document.getElementById("startWorkoutTime"),
+      startWorkoutStreak: document.getElementById("startWorkoutStreak"),
       workoutMode: document.getElementById("workoutMode"),
       wmModeLabel: document.getElementById("wmModeLabel"),
       wmWorkoutTitle: document.getElementById("wmWorkoutTitle"),
@@ -1803,6 +1868,9 @@ Log any wins."></textarea>
       els.workoutTitle.textContent = `${day.weekday.toUpperCase()} - ${day.title}`;
       els.focusText.textContent = day.focus;
       els.targetTime.textContent = day.target;
+      els.startWorkoutName.textContent = day.title;
+      els.startWorkoutTime.textContent = day.target;
+      els.startWorkoutStreak.textContent = "1 SESSION";
       renderList(els.warmupList, day.warmup);
       renderList(els.cooldownList, day.cooldown);
       renderMuscleMatrix();
@@ -2199,6 +2267,7 @@ Log any wins."></textarea>
     });
     document.getElementById("logWorkout").addEventListener("click", logWorkoutHistory);
     els.startWorkout.addEventListener("click", enterWorkoutMode);
+    els.startWorkoutPanel.addEventListener("click", enterWorkoutMode);
     els.wmDone.addEventListener("click", completeWorkoutModeStep);
     els.wmReady.addEventListener("click", readyForNextSet);
     els.wmSkip.addEventListener("click", readyForNextSet);

@@ -22,3 +22,9 @@
 - Added Mission Complete with Log Workout and Return to Dashboard actions.
 - Preserved dashboard planning, set dots, active sequencing, localStorage, Dad Mode, recovery modal, hologram, SFX, and timers.
 - Updated in-app copy for DAD BOD, MUSCLES WORKING, TODAY'S SESSION, HOW'D THAT FEEL?, and Saved.
+
+## 2026-06-26 - Dashboard Start Panel
+
+- Replaced the main dashboard Notes card with a dedicated Start Workout panel.
+- Moved notes into the post-workout Mission Complete screen so typing stays out of the lifting flow.
+- Kept Start Workout wired directly into Workout Mode while preserving existing workout data and localStorage.
