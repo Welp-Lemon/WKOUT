@@ -1,4 +1,4 @@
-const WKOUT_CACHE = "wkout-pwa-v1";
+const WKOUT_CACHE = "wkout-pwa-v2";
 const WKOUT_ASSETS = [
   "./",
   "./index.html",

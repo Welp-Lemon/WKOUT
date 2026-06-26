@@ -14,3 +14,11 @@
 - Added PWA support with a web app manifest, service worker, install icons, and iPad home-screen metadata.
 - Registered the service worker only on HTTP/HTTPS so local file testing remains safe.
 - Configured fullscreen landscape launch behavior for iPad and GitHub Pages.
+## 2026-06-26 - Workout Mode
+
+- Added a dedicated full-screen Workout Mode for lifting with a giant DONE button.
+- Rest Mode shows REST/GO status while keeping the next exercise visible.
+- Added Rest Mode with a 60-second countdown, READY, Pause, Skip, and obvious GO state.
+- Added Mission Complete with Log Workout and Return to Dashboard actions.
+- Preserved dashboard planning, set dots, active sequencing, localStorage, Dad Mode, recovery modal, hologram, SFX, and timers.
+- Updated in-app copy for DAD BOD, MUSCLES WORKING, TODAY'S SESSION, HOW'D THAT FEEL?, and Saved.

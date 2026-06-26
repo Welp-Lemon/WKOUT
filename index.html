@@ -730,7 +730,7 @@
 
     .bottom-nav {
       display: grid;
-      grid-template-columns: repeat(8, minmax(82px, 1fr));
+      grid-template-columns: repeat(9, minmax(82px, 1fr));
       gap: 8px;
       border: 1px solid var(--line);
       border-radius: var(--radius);
@@ -831,6 +831,231 @@
       }
     }
 
+    .app.workout-mode-active > .topbar,
+    .app.workout-mode-active > .dashboard,
+    .app.workout-mode-active > .bottom-nav {
+      display: none;
+    }
+
+    .workout-mode-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      display: none;
+      grid-template-rows: 20vh 1fr;
+      background:
+        linear-gradient(rgba(52, 255, 122, 0.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(52, 255, 122, 0.04) 1px, transparent 1px),
+        #020604;
+      background-size: 34px 34px, 34px 34px, auto;
+      padding: 16px;
+      overflow: hidden;
+    }
+
+    .app.workout-mode-active .workout-mode-screen {
+      display: grid;
+    }
+
+    .wm-info-band {
+      display: grid;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      background: rgba(0, 18, 8, 0.88);
+      box-shadow: var(--shadow);
+      pointer-events: none;
+    }
+
+    .wm-kicker {
+      color: var(--muted);
+      font-size: clamp(12px, 1.5vw, 18px);
+      text-transform: uppercase;
+    }
+
+    .wm-title {
+      color: var(--hot);
+      font-size: clamp(28px, 4vw, 56px);
+      line-height: 1;
+      text-transform: uppercase;
+      text-shadow: 0 0 18px rgba(85,255,139,.58);
+    }
+
+    .wm-body {
+      min-height: 0;
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(300px, .85fr);
+      gap: 18px;
+      padding-top: 18px;
+    }
+
+    .wm-left, .wm-right {
+      min-height: 0;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(0, 16, 8, 0.8);
+      box-shadow: inset 0 0 26px rgba(85,255,139,.05);
+      padding: 18px;
+    }
+
+    .wm-left {
+      display: grid;
+      grid-template-rows: auto auto 1fr auto;
+      gap: 16px;
+    }
+
+    .wm-right {
+      display: grid;
+      grid-template-rows: 1fr auto auto;
+      gap: 14px;
+      align-items: end;
+    }
+
+    .wm-label {
+      color: var(--muted);
+      font-size: clamp(12px, 1.5vw, 18px);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .wm-exercise {
+      color: var(--hot);
+      font-size: clamp(42px, 6.2vw, 86px);
+      line-height: .98;
+      text-transform: uppercase;
+      text-shadow: 0 0 18px rgba(85,255,139,.44);
+      overflow-wrap: anywhere;
+    }
+
+    .wm-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .wm-stat {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 12px;
+      background: rgba(0, 28, 13, 0.68);
+    }
+
+    .wm-stat strong {
+      display: block;
+      color: var(--hot);
+      font-size: clamp(30px, 4vw, 58px);
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .wm-timer {
+      color: var(--hot);
+      font-size: clamp(54px, 8vw, 118px);
+      line-height: 1;
+      text-shadow: 0 0 22px rgba(85,255,139,.68);
+    }
+
+    .wm-progress {
+      color: var(--muted);
+      font-size: clamp(14px, 1.8vw, 22px);
+      text-transform: uppercase;
+    }
+
+    .wm-done {
+      width: 100%;
+      min-height: min(42vh, 330px);
+      border-width: 2px;
+      border-color: var(--line-hot);
+      background: var(--hot);
+      color: #06160b;
+      font-size: clamp(52px, 8vw, 112px);
+      font-weight: 800;
+      box-shadow: 0 0 34px rgba(85,255,139,.38);
+    }
+
+    .wm-secondary-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .wm-secondary-actions button {
+      min-height: 64px;
+      font-size: clamp(16px, 2vw, 24px);
+    }
+
+    .wm-ready {
+      width: 100%;
+      min-height: min(34vh, 250px);
+      border-width: 2px;
+      border-color: var(--line-hot);
+      background: var(--hot);
+      color: #06160b;
+      font-size: clamp(44px, 7vw, 92px);
+      font-weight: 800;
+      box-shadow: 0 0 30px rgba(85,255,139,.34);
+    }
+
+    .wm-rest-state {
+      color: var(--hot);
+      font-size: clamp(54px, 8vw, 120px);
+      line-height: 1;
+      text-align: right;
+      text-shadow: 0 0 22px rgba(85,255,139,.68);
+    }
+
+    .wm-rest-state.go {
+      color: #07170b;
+      background: var(--hot);
+      border-radius: var(--radius);
+      padding: 12px;
+      box-shadow: 0 0 36px rgba(85,255,139,.62);
+    }
+
+    .wm-complete {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 22;
+      background: rgba(0, 12, 5, .96);
+      padding: max(22vh, 150px) 32px 32px;
+    }
+
+    .app.workout-mode-active .wm-complete.active {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(300px, .8fr);
+      gap: 24px;
+      align-items: end;
+    }
+
+    .wm-complete h2 {
+      color: var(--hot);
+      font-size: clamp(48px, 8vw, 112px);
+      line-height: 1;
+      text-transform: uppercase;
+      text-shadow: 0 0 24px rgba(85,255,139,.64);
+    }
+
+    .wm-complete p {
+      color: var(--muted);
+      font-size: clamp(24px, 3vw, 42px);
+      margin-top: 12px;
+    }
+
+    .wm-complete-actions {
+      display: grid;
+      gap: 14px;
+    }
+
+    .wm-complete-actions button {
+      min-height: 86px;
+      font-size: clamp(20px, 2.6vw, 34px);
+    }
+
+    .wm-hidden {
+      display: none !important;
+    }
+
     .protected-message {
       border: 1px dashed var(--line);
       color: var(--muted);
@@ -913,9 +1138,9 @@
     <header class="topbar">
       <h1 class="brand-logo"><span class="logo-mark">W</span><span class="brand-word">WKOUT</span></h1>
       <div>
-        <p class="subtitle">DAD WKOUT // DISCIPLINE. ACTION. DRIVE.</p>
+        <p class="subtitle">DAD BOD</p>
       </div>
-      <div class="mission">FOCUS &gt; STRENGTH // LEAN // LONGEVITY</div>
+      <div class="mission">Building Dad Strength Since Bedtime.</div>
       <div class="clock" id="clock">--:--:--</div>
     </header>
 
@@ -959,7 +1184,7 @@
               <div class="leg-l"></div>
               <div class="leg-r"></div>
             </div>
-            <div class="matrix-label">ACTIVE MUSCLE MATRIX</div>
+            <div class="matrix-label">MUSCLES WORKING</div>
           </section>
         </div>
 
@@ -1029,7 +1254,7 @@
         </section>
 
         <section class="mini-card">
-          <h2 class="panel-title">// EFFORT LEVEL</h2>
+          <h2 class="panel-title">// HOW'D THAT FEEL?</h2>
           <div class="effort-row">
             <div>
               <input id="effort" type="range" min="1" max="10" value="7">
@@ -1055,12 +1280,13 @@
           <textarea id="notes" placeholder="How did the session feel?
 What could be better next time?
 Log any wins."></textarea>
-          <div class="status-line" id="saveStatus">AUTO-SAVE READY</div>
+          <div class="status-line" id="saveStatus">Saved</div>
         </section>
       </aside>
     </main>
 
     <nav class="bottom-nav" aria-label="Training navigation">
+      <button id="startWorkout" class="utility-on" type="button">Start Workout</button>
       <button id="logWorkout" type="button">Log Workout</button>
       <button type="button">Progress Tracker</button>
       <button type="button">Week View</button>
@@ -1081,7 +1307,7 @@ Log any wins."></textarea>
           <span>✓ STRETCH</span>
           <span>✓ SHOWER</span>
           <span>✓ SLEEP</span>
-          <span>SYSTEM STATUS: MUSCLE ADAPTATION INITIATED</span>
+          <span>TODAY'S SESSION: MUSCLE ADAPTATION INITIATED</span>
         </div>
         <div class="modal-actions">
           <button id="closeRecovery" type="button">Dismiss</button>
@@ -1101,6 +1327,54 @@ Log any wins."></textarea>
         </div>
       </section>
     </div>
+
+    <section class="workout-mode-screen" id="workoutMode" aria-live="polite">
+      <div class="wm-info-band">
+        <div>
+          <div class="wm-kicker" id="wmModeLabel">Workout Mode</div>
+          <div class="wm-title" id="wmWorkoutTitle">Upper Hypertrophy + Arms</div>
+        </div>
+      </div>
+      <div class="wm-body">
+        <div class="wm-left">
+          <div>
+            <div class="wm-label" id="wmPrimaryLabel">Current Exercise</div>
+            <div class="wm-exercise" id="wmExercise">Incline DB Bench Press</div>
+          </div>
+          <div class="wm-stats">
+            <div class="wm-stat"><div class="wm-label">Set</div><strong id="wmSet">1/4</strong></div>
+            <div class="wm-stat"><div class="wm-label">Reps</div><strong id="wmReps">8-10</strong></div>
+            <div class="wm-stat"><div class="wm-label">Timer</div><strong id="wmTimerMini">00:00</strong></div>
+          </div>
+          <div>
+            <div class="wm-label">Timer</div>
+            <div class="wm-timer" id="wmTimer">00:00</div>
+          </div>
+          <div class="wm-progress" id="wmProgress">Step 1 of 12</div>
+        </div>
+        <div class="wm-right">
+          <div class="wm-rest-state wm-hidden" id="wmRestState">REST</div>
+          <button class="wm-done" id="wmDone" type="button" aria-label="Complete current set">DONE</button>
+          <button class="wm-ready wm-hidden" id="wmReady" type="button">READY</button>
+          <div class="wm-secondary-actions">
+            <button id="wmPause" type="button">Pause</button>
+            <button id="wmSkip" type="button">Skip</button>
+            <button id="wmExit" type="button">Exit</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="wm-complete" id="wmComplete" aria-live="polite">
+      <div>
+        <h2>MISSION COMPLETE</h2>
+        <p>Nice work.</p>
+      </div>
+      <div class="wm-complete-actions">
+        <button id="wmLogWorkout" type="button">Log Workout</button>
+        <button id="wmReturnDashboard" type="button">Return to Dashboard</button>
+      </div>
+    </section>
   </div>
 
   <script>
@@ -1240,6 +1514,26 @@ Log any wins."></textarea>
       recoveryModal: document.getElementById("recoveryModal"),
       dadModal: document.getElementById("dadModal"),
       sfxToggle: document.getElementById("sfxToggle"),
+      startWorkout: document.getElementById("startWorkout"),
+      workoutMode: document.getElementById("workoutMode"),
+      wmModeLabel: document.getElementById("wmModeLabel"),
+      wmWorkoutTitle: document.getElementById("wmWorkoutTitle"),
+      wmPrimaryLabel: document.getElementById("wmPrimaryLabel"),
+      wmExercise: document.getElementById("wmExercise"),
+      wmSet: document.getElementById("wmSet"),
+      wmReps: document.getElementById("wmReps"),
+      wmTimerMini: document.getElementById("wmTimerMini"),
+      wmTimer: document.getElementById("wmTimer"),
+      wmProgress: document.getElementById("wmProgress"),
+      wmRestState: document.getElementById("wmRestState"),
+      wmDone: document.getElementById("wmDone"),
+      wmReady: document.getElementById("wmReady"),
+      wmPause: document.getElementById("wmPause"),
+      wmSkip: document.getElementById("wmSkip"),
+      wmExit: document.getElementById("wmExit"),
+      wmComplete: document.getElementById("wmComplete"),
+      wmLogWorkout: document.getElementById("wmLogWorkout"),
+      wmReturnDashboard: document.getElementById("wmReturnDashboard"),
       notes: document.getElementById("notes"),
       saveStatus: document.getElementById("saveStatus"),
       effort: document.getElementById("effort"),
@@ -1256,6 +1550,7 @@ Log any wins."></textarea>
     let wakeLockRequested = false;
     let audioContext = null;
     let sfxEnabled = localStorage.getItem(storagePrefix + "sfxEnabled") === "true";
+    let workoutModeState = "dashboard";
 
     const muscleMap = {
       mon: ["chest", "back", "arms"],
@@ -1353,6 +1648,137 @@ Log any wins."></textarea>
       return sequence[getActiveStepIndex(sequence)];
     }
 
+    function getStepDetails() {
+      const day = selectedDay();
+      const sequence = buildSequence(day);
+      const activeIndex = getActiveStepIndex(sequence);
+      const step = sequence[activeIndex];
+      if (!step) return { day, sequence, activeIndex, step: null, rows: [] };
+      const rows = step.rowIndexes.map(index => ({ index, row: day.workout[index] }));
+      return { day, sequence, activeIndex, step, rows };
+    }
+
+    function isWorkoutComplete(sequence = buildSequence(), savedSets = getSavedSets()) {
+      return Boolean(sequence.length) && sequence.every(step => step.rowIndexes.every(rowIndex => savedSets[`${rowIndex}-${step.round}`]));
+    }
+
+    function startTimerIfStopped() {
+      if (timer) return;
+      timer = setInterval(tickTimer, 1000);
+      document.getElementById("startPause").textContent = "Pause";
+    }
+
+    function updateWorkoutTimerDisplays(value) {
+      if (!els.wmTimer) return;
+      const formatted = formatTime(value);
+      els.wmTimer.textContent = formatted;
+      els.wmTimerMini.textContent = formatted;
+    }
+
+    function renderWorkoutMode() {
+      if (workoutModeState === "dashboard") return;
+      const { day, sequence, activeIndex, step, rows } = getStepDetails();
+      const savedSets = getSavedSets();
+      els.wmWorkoutTitle.textContent = day.title;
+      if (workoutModeState === "complete" || isWorkoutComplete(sequence, savedSets)) {
+        workoutModeState = "complete";
+        els.wmComplete.classList.add("active");
+        els.wmExercise.textContent = "MISSION COMPLETE";
+        updateWorkoutTimerDisplays(sessionElapsed);
+        return;
+      }
+      els.wmComplete.classList.remove("active");
+      if (!step || !rows.length) {
+        els.wmExercise.textContent = "Protected Day";
+        els.wmReps.textContent = "OFF";
+        els.wmSet.textContent = "--";
+        els.wmProgress.textContent = "No lifting scheduled";
+        return;
+      }
+      const exerciseNames = rows.map(item => item.row[1]).join(" + ");
+      const repTargets = rows.map(item => item.row[3]).join(" / ");
+      const setCounts = rows.map(item => Number(item.row[2]) || 1);
+      const setTotal = Math.max(...setCounts);
+      els.wmExercise.textContent = exerciseNames;
+      els.wmReps.textContent = workoutModeState === "rest" ? "BREATHE" : repTargets;
+      els.wmSet.textContent = `${step.round + 1}/${setTotal}`;
+      els.wmProgress.textContent = `Step ${activeIndex + 1} of ${sequence.length}`;
+      els.wmModeLabel.textContent = workoutModeState === "rest" ? "Rest Mode" : "Workout Mode";
+      els.wmPrimaryLabel.textContent = workoutModeState === "rest" ? "Next Exercise" : "Current Exercise";
+      els.wmDone.classList.toggle("wm-hidden", workoutModeState !== "workout");
+      els.wmReady.classList.toggle("wm-hidden", workoutModeState !== "rest");
+      els.wmRestState.classList.toggle("wm-hidden", workoutModeState !== "rest");
+      els.wmSkip.classList.toggle("wm-hidden", workoutModeState !== "rest");
+      els.wmRestState.textContent = workoutModeState === "rest" && restRemaining <= 0 ? "GO" : "REST";
+      els.wmRestState.classList.toggle("go", workoutModeState === "rest" && restRemaining <= 0);
+      updateWorkoutTimerDisplays(workoutModeState === "rest" ? restRemaining : sessionElapsed);
+    }
+
+    function enterWorkoutMode() {
+      const day = selectedDay();
+      if (!day.workout.length) return;
+      const sequence = buildSequence(day);
+      setActiveStepIndex(firstIncompleteStepIndex(sequence, getSavedSets()), sequence);
+      workoutModeState = isWorkoutComplete(sequence) ? "complete" : "workout";
+      document.querySelector(".app").classList.add("workout-mode-active");
+      els.wmPause.textContent = "Pause";
+      setTimerMode("session");
+      startTimerIfStopped();
+      renderWorkoutMode();
+    }
+
+    function exitWorkoutMode() {
+      workoutModeState = "dashboard";
+      document.querySelector(".app").classList.remove("workout-mode-active");
+      els.wmComplete.classList.remove("active");
+      els.wmPause.textContent = "Pause";
+      renderWorkout();
+      setTimerMode("session");
+    }
+
+    function completeWorkoutModeStep() {
+      const { sequence, step } = getStepDetails();
+      if (!step) return;
+      const savedSets = getSavedSets();
+      step.rowIndexes.forEach(rowIndex => {
+        savedSets[`${rowIndex}-${step.round}`] = true;
+      });
+      saveSets(savedSets);
+      playSfx("set");
+      if (navigator.vibrate) navigator.vibrate(80);
+      if (isWorkoutComplete(sequence, savedSets)) {
+        workoutModeState = "complete";
+        stopTimer();
+        renderWorkout();
+        renderWorkoutMode();
+        return;
+      }
+      setActiveStepIndex(firstIncompleteStepIndex(sequence, savedSets), sequence);
+      renderWorkout();
+      workoutModeState = "rest";
+      setTimerMode("rest");
+      startTimerIfStopped();
+      renderWorkoutMode();
+    }
+
+    function readyForNextSet() {
+      workoutModeState = "workout";
+      setTimerMode("session");
+      startTimerIfStopped();
+      renderWorkoutMode();
+    }
+
+    function pauseWorkoutModeTimer() {
+      if (timer) {
+        stopTimer();
+        els.wmPause.textContent = "Resume";
+        document.getElementById("startPause").textContent = "Start";
+      } else {
+        startTimerIfStopped();
+        els.wmPause.textContent = "Pause";
+      }
+    }
+
     function renderDays() {
       els.dayList.innerHTML = "";
       days.forEach(day => {
@@ -1384,7 +1810,7 @@ Log any wins."></textarea>
       els.protectedMessage.textContent = day.protected ? "> PROTECTED DAY ACTIVE // Recovery is productive. No lifting required." : "";
       const savedSets = getSavedSets();
       if (!day.workout.length) {
-        els.workoutRows.innerHTML = `<tr><td class="block">OFF</td><td colspan="5">WORKOUT COMPLETE<br>RECOVERY PROTOCOL<br>16-24 oz water // 25-40g protein // 5 min stretch // Shower // Sleep<br><br>SYSTEM STATUS: Muscle adaptation initiated...</td></tr>`;
+        els.workoutRows.innerHTML = `<tr><td class="block">OFF</td><td colspan="5">WORKOUT COMPLETE<br>RECOVERY PROTOCOL<br>16-24 oz water // 25-40g protein // 5 min stretch // Shower // Sleep<br><br>TODAY'S SESSION: Muscle adaptation initiated...</td></tr>`;
         renderFlow();
         return;
       }
@@ -1486,7 +1912,7 @@ Log any wins."></textarea>
       els.notes.value = localStorage.getItem(dayDateKey("notes")) || "";
       els.effort.value = localStorage.getItem(dayDateKey("effort")) || "7";
       updateEffort();
-      els.saveStatus.textContent = "AUTO-SAVE READY";
+      els.saveStatus.textContent = "Saved";
     }
 
     function formatTime(seconds) {
@@ -1638,12 +2064,14 @@ Log any wins."></textarea>
       buzz();
       playSfx("timer");
       document.getElementById("startPause").textContent = "Start";
+      if (workoutModeState === "rest") renderWorkoutMode();
     }
 
     function tickTimer() {
       if (timerMode === "session") {
         sessionElapsed += 1;
         document.getElementById("timerDisplay").textContent = formatTime(sessionElapsed);
+        if (workoutModeState !== "dashboard") updateWorkoutTimerDisplays(sessionElapsed);
         return;
       }
       if (restRemaining <= 0) {
@@ -1652,6 +2080,7 @@ Log any wins."></textarea>
       }
       restRemaining -= 1;
       document.getElementById("timerDisplay").textContent = formatTime(restRemaining);
+      if (workoutModeState === "rest") renderWorkoutMode();
       if (restRemaining <= 0) finishTimer();
     }
 
@@ -1769,6 +2198,17 @@ Log any wins."></textarea>
       renderWorkout();
     });
     document.getElementById("logWorkout").addEventListener("click", logWorkoutHistory);
+    els.startWorkout.addEventListener("click", enterWorkoutMode);
+    els.wmDone.addEventListener("click", completeWorkoutModeStep);
+    els.wmReady.addEventListener("click", readyForNextSet);
+    els.wmSkip.addEventListener("click", readyForNextSet);
+    els.wmPause.addEventListener("click", pauseWorkoutModeTimer);
+    els.wmExit.addEventListener("click", exitWorkoutMode);
+    els.wmReturnDashboard.addEventListener("click", exitWorkoutMode);
+    els.wmLogWorkout.addEventListener("click", () => {
+      logWorkoutHistory();
+      exitWorkoutMode();
+    });
     document.getElementById("closeRecovery").addEventListener("click", hideRecoveryProtocol);
     document.getElementById("dadMode").addEventListener("click", showDadMode);
     document.getElementById("resumeDad").addEventListener("click", hideDadMode);
@@ -1781,7 +2221,7 @@ Log any wins."></textarea>
     els.effort.addEventListener("input", updateEffort);
     els.notes.addEventListener("input", () => {
       localStorage.setItem(dayDateKey("notes"), els.notes.value);
-      els.saveStatus.textContent = `SAVED ${new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`;
+      els.saveStatus.textContent = "Saved";
     });
 
     function initEq() {
