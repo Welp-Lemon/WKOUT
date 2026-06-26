@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{ CODEX TRAINING v1.0 }</title>
+  <title>WKOUT // DAD MATRIX</title>
   <style>
     :root {
       --bg: #020604;
@@ -110,6 +110,29 @@
       font-size: clamp(16px, 2vw, 26px);
       line-height: 1;
       text-shadow: 0 0 16px rgba(82, 255, 143, 0.55);
+    }
+
+    .brand-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      white-space: nowrap;
+    }
+
+    .logo-mark {
+      display: inline-grid;
+      place-items: center;
+      width: 34px;
+      height: 30px;
+      border: 1px solid var(--line-hot);
+      color: #07170b;
+      background: var(--hot);
+      box-shadow: 0 0 18px rgba(85,255,139,.42), inset 0 0 10px rgba(0,0,0,.35);
+      clip-path: polygon(8% 0, 100% 0, 92% 100%, 0 100%);
+    }
+
+    .brand-word {
+      letter-spacing: 1px;
     }
 
     .subtitle {
@@ -880,9 +903,9 @@
 <body>
   <div class="app">
     <header class="topbar">
-      <h1>{ CODEX TRAINING v1.0 }</h1>
+      <h1 class="brand-logo"><span class="logo-mark">W</span><span class="brand-word">WKOUT</span></h1>
       <div>
-        <p class="subtitle">DANIEL // DAD. ATHLETIC. DISCIPLINED.</p>
+        <p class="subtitle">DAD WKOUT // DISCIPLINE. ACTION. DRIVE.</p>
       </div>
       <div class="mission">FOCUS &gt; STRENGTH // LEAN // LONGEVITY</div>
       <div class="clock" id="clock">--:--:--</div>
@@ -985,11 +1008,11 @@
         <section class="mini-card">
           <h2 class="panel-title">// ACTIVE TIMER</h2>
           <div class="timer-mode">
-            <button id="coreMode" class="active" type="button">39 Sec Core</button>
+            <button id="coreMode" class="active" type="button">WKOUT Chrono</button>
             <button id="restMode" type="button">Rest Timer</button>
           </div>
-          <div class="timer-label" id="timerLabel">ELBOWS-TO-KNEES ROUND TIMER</div>
-          <div class="timer-display" id="timerDisplay">00:39</div>
+          <div class="timer-label" id="timerLabel">REPSTREAM SESSION CLOCK // COUNTS UP</div>
+          <div class="timer-display" id="timerDisplay">00:00</div>
           <div class="timer-controls">
             <button id="startPause" type="button">Start</button>
             <button id="pauseBtn" type="button">Pause</button>
@@ -1217,8 +1240,9 @@ Log any wins."></textarea>
     };
 
     let selectedId = localStorage.getItem(storagePrefix + "selectedDay") || autoDayId();
-    let timerMode = "core";
-    let remaining = 39;
+    let timerMode = "session";
+    let sessionElapsed = 0;
+    let restRemaining = 60;
     let timer = null;
     let wakeLock = null;
     let wakeLockRequested = false;
@@ -1405,7 +1429,7 @@ Log any wins."></textarea>
       savedSets[key] = !savedSets[key];
       if (!savedSets[key]) delete savedSets[key];
       saveSets(savedSets);
-      playSfx("click");
+      playSfx(savedSets[key] ? "set" : "click");
       setActiveStepIndex(firstIncompleteStepIndex(buildSequence(), savedSets));
       renderWorkout();
     }
@@ -1423,7 +1447,7 @@ Log any wins."></textarea>
       renderWorkout();
       setTimerMode("rest");
       if (navigator.vibrate) navigator.vibrate(80);
-      playSfx("click");
+      playSfx("set");
     }
 
     function selectDay(dayId) {
@@ -1466,11 +1490,11 @@ Log any wins."></textarea>
     function setTimerMode(mode) {
       timerMode = mode;
       stopTimer();
-      remaining = mode === "core" ? 39 : 60;
-      document.getElementById("coreMode").classList.toggle("active", mode === "core");
+      if (mode === "rest") restRemaining = 60;
+      document.getElementById("coreMode").classList.toggle("active", mode === "session");
       document.getElementById("restMode").classList.toggle("active", mode === "rest");
-      document.getElementById("timerLabel").textContent = mode === "core" ? "ELBOWS-TO-KNEES ROUND TIMER" : "REST TIMER // DEFAULT 60 SEC";
-      document.getElementById("timerDisplay").textContent = formatTime(remaining);
+      document.getElementById("timerLabel").textContent = mode === "session" ? "REPSTREAM SESSION CLOCK // COUNTS UP" : "REST TIMER // DEFAULT 60 SEC";
+      document.getElementById("timerDisplay").textContent = formatTime(mode === "session" ? sessionElapsed : restRemaining);
       document.getElementById("startPause").textContent = "Start";
     }
 
@@ -1489,41 +1513,97 @@ Log any wins."></textarea>
       if (!AudioCtor) return null;
       try {
         audioContext = new AudioCtor();
-        if (audioContext.state === "suspended") audioContext.resume();
+        if (audioContext.state === "suspended") audioContext.resume().catch(() => {});
         return audioContext;
       } catch {
         return null;
       }
     }
 
-    function playTone(frequency, duration = 0.05, delay = 0, gainValue = 0.035) {
+    function playTone(frequency, duration = 0.05, delay = 0, gainValue = 0.035, type = "square") {
       const ctx = ensureAudioContext();
       if (!ctx) return;
       const start = ctx.currentTime + delay;
       const oscillator = ctx.createOscillator();
+      const filter = ctx.createBiquadFilter();
       const gain = ctx.createGain();
-      oscillator.type = "square";
+      oscillator.type = type;
       oscillator.frequency.setValueAtTime(frequency, start);
+      if (duration > 0.07) oscillator.frequency.exponentialRampToValueAtTime(Math.max(40, frequency * 0.72), start + duration);
+      filter.type = "lowpass";
+      filter.frequency.setValueAtTime(2800, start);
       gain.gain.setValueAtTime(0.0001, start);
       gain.gain.exponentialRampToValueAtTime(gainValue, start + 0.01);
       gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
-      oscillator.connect(gain);
+      oscillator.connect(filter);
+      filter.connect(gain);
       gain.connect(ctx.destination);
       oscillator.start(start);
       oscillator.stop(start + duration + 0.02);
     }
 
+    function playNoise(duration = 0.035, delay = 0, gainValue = 0.018) {
+      const ctx = ensureAudioContext();
+      if (!ctx || !ctx.createBuffer) return;
+      const start = ctx.currentTime + delay;
+      const length = Math.max(1, Math.floor(ctx.sampleRate * duration));
+      const buffer = ctx.createBuffer(1, length, ctx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let i = 0; i < length; i += 1) data[i] = (Math.random() * 2 - 1) * (1 - i / length);
+      const source = ctx.createBufferSource();
+      const filter = ctx.createBiquadFilter();
+      const gain = ctx.createGain();
+      filter.type = "bandpass";
+      filter.frequency.setValueAtTime(1800, start);
+      filter.Q.setValueAtTime(6, start);
+      gain.gain.setValueAtTime(gainValue, start);
+      gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+      source.buffer = buffer;
+      source.connect(filter);
+      filter.connect(gain);
+      gain.connect(ctx.destination);
+      source.start(start);
+      source.stop(start + duration + 0.01);
+    }
+
+    function playMatrixClick() {
+      playTone(740, 0.025, 0, 0.018, "square");
+      playTone(370, 0.035, 0.018, 0.014, "triangle");
+      playNoise(0.026, 0, 0.012);
+    }
+
+    function playSetComplete() {
+      playTone(520, 0.055, 0, 0.026, "square");
+      playTone(780, 0.06, 0.052, 0.032, "square");
+      playTone(1170, 0.075, 0.112, 0.03, "triangle");
+      playNoise(0.04, 0.02, 0.01);
+    }
+
+    function playTimerFinish() {
+      playTone(960, 0.08, 0, 0.038, "square");
+      playTone(1280, 0.1, 0.13, 0.042, "square");
+      playNoise(0.05, 0.12, 0.012);
+    }
+
+    function playWorkoutComplete() {
+      playNoise(0.06, 0, 0.016);
+      playTone(392, 0.075, 0, 0.028, "sawtooth");
+      playTone(588, 0.075, 0.075, 0.032, "square");
+      playTone(784, 0.09, 0.15, 0.035, "square");
+      playTone(1176, 0.14, 0.25, 0.038, "triangle");
+      playTone(1568, 0.16, 0.38, 0.032, "triangle");
+    }
+
     function playSfx(type) {
       if (!sfxEnabled) return;
       if (type === "timer") {
-        playTone(880, 0.07, 0, 0.04);
-        playTone(1040, 0.08, 0.12, 0.04);
+        playTimerFinish();
       } else if (type === "logged") {
-        playTone(660, 0.04, 0, 0.035);
-        playTone(920, 0.05, 0.06, 0.035);
-        playTone(1240, 0.06, 0.13, 0.03);
+        playWorkoutComplete();
+      } else if (type === "set") {
+        playSetComplete();
       } else {
-        playTone(520, 0.045, 0, 0.028);
+        playMatrixClick();
       }
     }
 
@@ -1544,7 +1624,7 @@ Log any wins."></textarea>
     }
 
     function finishTimer() {
-      remaining = 0;
+      restRemaining = 0;
       document.getElementById("timerDisplay").textContent = "00:00";
       stopTimer();
       buzz();
@@ -1553,13 +1633,18 @@ Log any wins."></textarea>
     }
 
     function tickTimer() {
-      if (remaining <= 0) {
+      if (timerMode === "session") {
+        sessionElapsed += 1;
+        document.getElementById("timerDisplay").textContent = formatTime(sessionElapsed);
+        return;
+      }
+      if (restRemaining <= 0) {
         finishTimer();
         return;
       }
-      remaining -= 1;
-      document.getElementById("timerDisplay").textContent = formatTime(remaining);
-      if (remaining <= 0) finishTimer();
+      restRemaining -= 1;
+      document.getElementById("timerDisplay").textContent = formatTime(restRemaining);
+      if (restRemaining <= 0) finishTimer();
     }
 
     function getWorkoutHistory() {
@@ -1590,7 +1675,9 @@ Log any wins."></textarea>
         effort: els.effort.value,
         effortLabel: effortLabel(Number(els.effort.value)),
         notes: els.notes.value,
-        completedSets: getSavedSets()
+        completedSets: getSavedSets(),
+        sessionSeconds: sessionElapsed,
+        sessionTime: formatTime(sessionElapsed)
       });
       els.saveStatus.textContent = "WORKOUT LOGGED // WATER + PROTEIN + STRETCH + SHOWER + SLEEP";
       playSfx("logged");
@@ -1637,7 +1724,7 @@ Log any wins."></textarea>
       });
     }
 
-    document.getElementById("coreMode").addEventListener("click", () => setTimerMode("core"));
+    document.getElementById("coreMode").addEventListener("click", () => setTimerMode("session"));
     document.getElementById("restMode").addEventListener("click", () => setTimerMode("rest"));
     document.getElementById("startPause").addEventListener("click", () => {
       if (timer) {
@@ -1652,7 +1739,11 @@ Log any wins."></textarea>
       stopTimer();
       document.getElementById("startPause").textContent = "Start";
     });
-    document.getElementById("resetTimer").addEventListener("click", () => setTimerMode(timerMode));
+    document.getElementById("resetTimer").addEventListener("click", () => {
+      if (timerMode === "session") sessionElapsed = 0;
+      if (timerMode === "rest") restRemaining = 60;
+      setTimerMode(timerMode);
+    });
     document.getElementById("resetToday").addEventListener("click", () => {
       localStorage.removeItem(dayDateKey("sets"));
       localStorage.removeItem(activeStepKey());
