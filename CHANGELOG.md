@@ -9,3 +9,8 @@
 - Added session duration to workout history entries.
 - Upgraded opt-in SFX with Matrix clicks, set-complete feedback, timer-finish beeps, and a workout-complete flourish.
 - Preserved the one-file static app shape for GitHub Pages deployment from the repository root.
+## 2026-06-26
+
+- Added PWA support with a web app manifest, service worker, install icons, and iPad home-screen metadata.
+- Registered the service worker only on HTTP/HTTPS so local file testing remains safe.
+- Configured fullscreen landscape launch behavior for iPad and GitHub Pages.

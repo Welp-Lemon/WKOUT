@@ -1,0 +1,32 @@
+{
+  "name": "WKOUT // DAD Matrix",
+  "short_name": "WKOUT",
+  "description": "A fullscreen Matrix-style workout dashboard for iPad.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "background_color": "#020604",
+  "theme_color": "#020604",
+  "categories": ["health", "fitness", "productivity"],
+  "icons": [
+    {
+      "src": "./icons/wkout-180.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icons/wkout-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icons/wkout-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

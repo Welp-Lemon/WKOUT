@@ -4,6 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>WKOUT // DAD MATRIX</title>
+  <meta name="theme-color" content="#020604">
+  <meta name="color-scheme" content="dark">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="WKOUT">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" type="image/png" sizes="192x192" href="./icons/wkout-192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="./icons/wkout-180.png">
   <style>
     :root {
       --bg: #020604;
@@ -1786,6 +1794,14 @@ Log any wins."></textarea>
       }, 200);
     }
 
+    function initPwa() {
+      if (!("serviceWorker" in navigator)) return;
+      if (!location.protocol.startsWith("http")) return;
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js").catch(() => {});
+      });
+    }
+
     function initClock() {
       const clock = document.getElementById("clock");
       const update = () => {
@@ -1795,6 +1811,7 @@ Log any wins."></textarea>
       setInterval(update, 1000);
     }
 
+    initPwa();
     initClock();
     initEq();
     initWakeLock();
