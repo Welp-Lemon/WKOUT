@@ -28,3 +28,9 @@
 - Replaced the main dashboard Notes card with a dedicated Start Workout panel.
 - Moved notes into the post-workout Mission Complete screen so typing stays out of the lifting flow.
 - Kept Start Workout wired directly into Workout Mode while preserving existing workout data and localStorage.
+
+## 2026-06-26 - WKOUT Phase 1.2 Feedback
+
+- Simplified the default dashboard into a focused pre-workout screen with today's session, focus, warm-up, and START WORKOUT.
+- Added guided warm-up and cool-down steps to Workout Mode with large NEXT/SKIP controls.
+- Added form reference cards, live Workout Mode clock, clearer superset movement cards, and lighter animation behavior during lifting.

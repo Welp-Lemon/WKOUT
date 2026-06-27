@@ -173,6 +173,38 @@
       min-height: 0;
     }
 
+    .app:not(.details-open) .sidebar,
+    .app:not(.details-open) .right-panel,
+    .app:not(.details-open) .flow-card,
+    .app:not(.details-open) .table-section,
+    .app:not(.details-open) .bottom-nav {
+      display: none;
+    }
+
+    .app:not(.details-open) .dashboard {
+      grid-template-columns: minmax(0, 1fr);
+      overflow: auto;
+    }
+
+    .app:not(.details-open) .main-panel {
+      max-width: 980px;
+      width: 100%;
+      margin: 0 auto;
+      grid-template-rows: auto auto minmax(0, 1fr);
+      overflow: visible;
+    }
+
+    .app:not(.details-open) .workout-head {
+      grid-template-columns: minmax(0, 1fr);
+      max-height: none;
+    }
+
+    .app:not(.details-open) .timebox,
+    .app:not(.details-open) .holo,
+    .app:not(.details-open) .prep-grid {
+      display: none;
+    }
+
     .panel, .day-card, .mini-card {
       border: 1px solid var(--line);
       border-radius: var(--radius);
@@ -297,6 +329,61 @@
       gap: 8px;
       align-items: stretch;
       max-height: 122px;
+    }
+
+    .today-day {
+      color: var(--muted);
+      font-size: clamp(14px, 1.8vw, 24px);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .home-start-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, .72fr);
+      gap: 14px;
+      align-items: stretch;
+      padding: 14px;
+      border: 1px solid var(--line-hot);
+      border-radius: var(--radius);
+      background: linear-gradient(90deg, rgba(13, 70, 29, 0.76), rgba(0, 18, 8, 0.92));
+      box-shadow: 0 0 22px rgba(85,255,139,.2);
+    }
+
+    .home-start-card ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--text);
+      font-size: clamp(15px, 1.7vw, 22px);
+      line-height: 1.55;
+    }
+
+    .home-actions {
+      display: grid;
+      gap: 10px;
+      align-content: stretch;
+    }
+
+    .home-start-button {
+      min-height: 178px;
+      border-width: 2px;
+      border-color: var(--line-hot);
+      background: var(--hot);
+      color: #06160b;
+      font-size: clamp(34px, 5.2vw, 76px);
+      font-weight: 900;
+      box-shadow: 0 0 32px rgba(85,255,139,.38);
+    }
+
+    .details-toggle {
+      min-height: 54px;
+      color: var(--muted);
+    }
+
+    .home-copy {
+      color: var(--muted);
+      font-size: clamp(12px, 1.4vw, 18px);
+      line-height: 1.4;
     }
 
     .workout-title {
@@ -888,6 +975,11 @@
       display: none;
     }
 
+    .app.workout-mode-active .body,
+    .app.workout-mode-active .eq span {
+      animation-play-state: paused;
+    }
+
     .workout-mode-screen {
       position: fixed;
       inset: 0;
@@ -909,6 +1001,8 @@
 
     .wm-info-band {
       display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 18px;
       align-items: center;
       border: 1px solid var(--line);
       border-radius: var(--radius);
@@ -931,6 +1025,67 @@
       text-transform: uppercase;
       text-shadow: 0 0 18px rgba(85,255,139,.58);
     }
+    .wm-clock {
+      color: var(--hot);
+      font-size: clamp(24px, 3.2vw, 44px);
+      text-align: right;
+      white-space: nowrap;
+      text-shadow: 0 0 14px rgba(85,255,139,.5);
+    }
+
+    .wm-audio-note {
+      color: var(--muted);
+      font-size: clamp(10px, 1.1vw, 14px);
+      margin-top: 6px;
+      text-align: right;
+      text-transform: uppercase;
+    }
+
+    .wm-step-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .wm-move-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 12px;
+      background: rgba(0, 28, 13, 0.68);
+    }
+
+    .wm-move-card strong {
+      display: block;
+      color: var(--hot);
+      font-size: clamp(20px, 2.5vw, 34px);
+      line-height: 1.1;
+      text-transform: uppercase;
+    }
+
+    .wm-move-card span {
+      display: block;
+      color: var(--muted);
+      font-size: clamp(14px, 1.6vw, 22px);
+      margin-top: 6px;
+      text-transform: uppercase;
+    }
+
+    .wm-form-button {
+      min-height: 58px;
+      font-size: clamp(16px, 2vw, 24px);
+    }
+
+    .wm-next {
+      width: 100%;
+      min-height: min(34vh, 250px);
+      border-width: 2px;
+      border-color: var(--line-hot);
+      background: var(--hot);
+      color: #06160b;
+      font-size: clamp(48px, 7vw, 100px);
+      font-weight: 800;
+      box-shadow: 0 0 30px rgba(85,255,139,.34);
+    }
+
 
     .wm-body {
       min-height: 0;
@@ -957,7 +1112,7 @@
 
     .wm-right {
       display: grid;
-      grid-template-rows: 1fr auto auto;
+      grid-template-rows: 1fr auto auto auto;
       gap: 14px;
       align-items: end;
     }
@@ -1103,6 +1258,43 @@
       font-size: clamp(20px, 2.6vw, 34px);
     }
 
+    .reference-card {
+      width: min(760px, calc(100vw - 36px));
+      border: 1px solid var(--line-hot);
+      border-radius: var(--radius);
+      background: rgba(0, 18, 8, .96);
+      padding: 18px;
+      box-shadow: 0 0 30px rgba(85,255,139,.22);
+    }
+
+    .reference-card h2 {
+      color: var(--hot);
+      font-size: clamp(24px, 3vw, 42px);
+      text-transform: uppercase;
+      line-height: 1.05;
+    }
+
+    .reference-card p, .reference-card li {
+      color: var(--text);
+      font-size: clamp(14px, 1.6vw, 20px);
+      line-height: 1.45;
+    }
+
+    .reference-card ul {
+      margin: 12px 0;
+      padding-left: 20px;
+    }
+
+    .reference-placeholder {
+      border: 1px dashed var(--line);
+      color: var(--muted);
+      min-height: 90px;
+      display: grid;
+      place-items: center;
+      margin: 14px 0;
+      text-transform: uppercase;
+    }
+
     .wm-hidden {
       display: none !important;
     }
@@ -1211,6 +1403,7 @@
       <section class="panel main-panel">
         <div class="workout-head">
           <div>
+            <div class="today-day" id="todayDay">THURSDAY</div>
             <h2 class="workout-title" id="workoutTitle">DAY 3 - UPPER HYPERTROPHY + ARMS</h2>
             <p class="focus" id="focusText">Build upper chest, shoulders, arms, and forearms.</p>
           </div>
@@ -1240,6 +1433,18 @@
         </div>
 
         <div id="protectedMessage" class="protected-message" hidden></div>
+
+        <section class="home-start-card" id="homeStartCard">
+          <div>
+            <h3 class="panel-title">&gt; WARM-UP</h3>
+            <ul id="homeWarmupList"></ul>
+          </div>
+          <div class="home-actions">
+            <button id="homeStartWorkout" class="home-start-button" type="button">START WORKOUT</button>
+            <button id="detailsToggle" class="details-toggle" type="button" aria-pressed="false">Details</button>
+            <div class="home-copy">When you're ready, begin Workout Mode.</div>
+          </div>
+        </section>
 
         <section class="flow-card" id="flowCard">
           <div>
@@ -1369,6 +1574,19 @@
       </section>
     </div>
 
+    <div class="modal-backdrop" id="referenceModal" hidden role="dialog" aria-modal="true" aria-labelledby="referenceTitle">
+      <section class="reference-card">
+        <h2 id="referenceTitle">Exercise Form</h2>
+        <p id="referenceDescription"></p>
+        <ul id="referenceCues"></ul>
+        <p id="referenceMistake"></p>
+        <div class="reference-placeholder">Diagram placeholder</div>
+        <div class="modal-actions">
+          <button id="closeReference" type="button">Close</button>
+        </div>
+      </section>
+    </div>
+
     <div class="modal-backdrop" id="dadModal" hidden role="dialog" aria-modal="true" aria-labelledby="dadTitle">
       <section class="terminal-modal">
         <div class="dad-message">
@@ -1388,6 +1606,10 @@
           <div class="wm-kicker" id="wmModeLabel">Workout Mode</div>
           <div class="wm-title" id="wmWorkoutTitle">Upper Hypertrophy + Arms</div>
         </div>
+        <div>
+          <div class="wm-clock" id="wmClock">--:--</div>
+          <div class="wm-audio-note" id="wmAudioNote">SFX need one tap first</div>
+        </div>
       </div>
       <div class="wm-body">
         <div class="wm-left">
@@ -1395,6 +1617,7 @@
             <div class="wm-label" id="wmPrimaryLabel">Current Exercise</div>
             <div class="wm-exercise" id="wmExercise">Incline DB Bench Press</div>
           </div>
+          <div class="wm-step-list" id="wmRoundDetails"></div>
           <div class="wm-stats">
             <div class="wm-stat"><div class="wm-label">Set</div><strong id="wmSet">1/4</strong></div>
             <div class="wm-stat"><div class="wm-label">Reps</div><strong id="wmReps">8-10</strong></div>
@@ -1409,7 +1632,9 @@
         <div class="wm-right">
           <div class="wm-rest-state wm-hidden" id="wmRestState">REST</div>
           <button class="wm-done" id="wmDone" type="button" aria-label="Complete current set">DONE</button>
+          <button class="wm-next wm-hidden" id="wmNext" type="button" aria-label="Advance warm-up or cool-down step">NEXT</button>
           <button class="wm-ready wm-hidden" id="wmReady" type="button">READY</button>
+          <button class="wm-form-button" id="wmForm" type="button">Form</button>
           <div class="wm-secondary-actions">
             <button id="wmPause" type="button">Pause</button>
             <button id="wmSkip" type="button">Skip</button>
@@ -1432,6 +1657,7 @@ Log any wins."></textarea>
         </div>
       </div>
       <div class="wm-complete-actions">
+        <button id="wmStartCooldown" type="button">Start Cool-Down</button>
         <button id="wmLogWorkout" type="button">Log Workout</button>
         <button id="wmReturnDashboard" type="button">Return to Dashboard</button>
       </div>
@@ -1560,10 +1786,12 @@ Log any wins."></textarea>
 
     const els = {
       dayList: document.getElementById("dayList"),
+      todayDay: document.getElementById("todayDay"),
       workoutTitle: document.getElementById("workoutTitle"),
       focusText: document.getElementById("focusText"),
       targetTime: document.getElementById("targetTime"),
       warmupList: document.getElementById("warmupList"),
+      homeWarmupList: document.getElementById("homeWarmupList"),
       cooldownList: document.getElementById("cooldownList"),
       workoutRows: document.getElementById("workoutRows"),
       protectedMessage: document.getElementById("protectedMessage"),
@@ -1573,9 +1801,12 @@ Log any wins."></textarea>
       flowMeta: document.getElementById("flowMeta"),
       muscleMatrix: document.getElementById("muscleMatrix"),
       recoveryModal: document.getElementById("recoveryModal"),
+      referenceModal: document.getElementById("referenceModal"),
       dadModal: document.getElementById("dadModal"),
       sfxToggle: document.getElementById("sfxToggle"),
       startWorkout: document.getElementById("startWorkout"),
+      homeStartWorkout: document.getElementById("homeStartWorkout"),
+      detailsToggle: document.getElementById("detailsToggle"),
       startWorkoutPanel: document.getElementById("startWorkoutPanel"),
       startWorkoutName: document.getElementById("startWorkoutName"),
       startWorkoutTime: document.getElementById("startWorkoutTime"),
@@ -1589,21 +1820,31 @@ Log any wins."></textarea>
       wmReps: document.getElementById("wmReps"),
       wmTimerMini: document.getElementById("wmTimerMini"),
       wmTimer: document.getElementById("wmTimer"),
+      wmClock: document.getElementById("wmClock"),
+      wmAudioNote: document.getElementById("wmAudioNote"),
+      wmRoundDetails: document.getElementById("wmRoundDetails"),
       wmProgress: document.getElementById("wmProgress"),
       wmRestState: document.getElementById("wmRestState"),
       wmDone: document.getElementById("wmDone"),
+      wmNext: document.getElementById("wmNext"),
       wmReady: document.getElementById("wmReady"),
+      wmForm: document.getElementById("wmForm"),
       wmPause: document.getElementById("wmPause"),
       wmSkip: document.getElementById("wmSkip"),
       wmExit: document.getElementById("wmExit"),
       wmComplete: document.getElementById("wmComplete"),
+      wmStartCooldown: document.getElementById("wmStartCooldown"),
       wmLogWorkout: document.getElementById("wmLogWorkout"),
       wmReturnDashboard: document.getElementById("wmReturnDashboard"),
       notes: document.getElementById("notes"),
       saveStatus: document.getElementById("saveStatus"),
       effort: document.getElementById("effort"),
       effortReadout: document.getElementById("effortReadout"),
-      effortFill: document.getElementById("effortFill")
+      effortFill: document.getElementById("effortFill"),
+      referenceTitle: document.getElementById("referenceTitle"),
+      referenceDescription: document.getElementById("referenceDescription"),
+      referenceCues: document.getElementById("referenceCues"),
+      referenceMistake: document.getElementById("referenceMistake")
     };
 
     let selectedId = localStorage.getItem(storagePrefix + "selectedDay") || autoDayId();
@@ -1616,6 +1857,9 @@ Log any wins."></textarea>
     let audioContext = null;
     let sfxEnabled = localStorage.getItem(storagePrefix + "sfxEnabled") === "true";
     let workoutModeState = "dashboard";
+    let warmupIndex = 0;
+    let cooldownIndex = 0;
+    let eqInterval = null;
 
     const muscleMap = {
       mon: ["chest", "back", "arms"],
@@ -1727,6 +1971,105 @@ Log any wins."></textarea>
       return Boolean(sequence.length) && sequence.every(step => step.rowIndexes.every(rowIndex => savedSets[`${rowIndex}-${step.round}`]));
     }
 
+
+    function parseStepText(text) {
+      const value = String(text);
+      const parts = value.split(/\s+-\s+|\s+x\s+/i);
+      if (parts.length > 1) {
+        return { name: parts[0].trim(), target: parts.slice(1).join(" x ").trim() };
+      }
+      const duration = value.match(/\d+\s*(?:sec|seconds|min|minutes)(?:\/side|\/leg| each| brisk)?/i);
+      return { name: value.replace(duration?.[0] || "", "").trim() || value, target: duration ? duration[0].trim() : "Do it clean" };
+    }
+
+    function letterForIndex(index) {
+      return String.fromCharCode(65 + index);
+    }
+
+    const referenceFallbacks = {
+      default: {
+        description: "Move with control. Make the rep clean before making it heavy.",
+        cues: ["Brace first", "Smooth tempo", "Stop before form breaks"],
+        mistake: "Common mistake: rushing the movement to finish faster."
+      },
+      stretch: {
+        description: "Ease into the position and breathe. This should feel useful, not sharp.",
+        cues: ["Move slowly", "Keep breathing", "Hold steady tension"],
+        mistake: "Common mistake: forcing range of motion too hard."
+      },
+      carry: {
+        description: "Stand tall and make the weight feel boring. Grip hard, ribs down.",
+        cues: ["Tall posture", "Shoulders packed", "Controlled steps or steady hold"],
+        mistake: "Common mistake: leaning back or shrugging up."
+      },
+      plank: {
+        description: "Create a strong straight line and keep tension through the trunk.",
+        cues: ["Ribs down", "Squeeze glutes", "Push the floor away"],
+        mistake: "Common mistake: letting hips sag."
+      },
+      row: {
+        description: "Pull with the back, not just the hand. Pause briefly near the top.",
+        cues: ["Set shoulder first", "Elbow drives back", "Control the lower"],
+        mistake: "Common mistake: twisting the torso to finish the rep."
+      },
+      press: {
+        description: "Press from a stable base and keep the rep path controlled.",
+        cues: ["Brace before pressing", "Wrists stacked", "Control the bottom"],
+        mistake: "Common mistake: flaring hard or bouncing out of the bottom."
+      },
+      squat: {
+        description: "Sit between the hips and stand tall with control.",
+        cues: ["Feet rooted", "Knees track toes", "Chest proud"],
+        mistake: "Common mistake: collapsing knees inward."
+      },
+      hinge: {
+        description: "Push hips back while keeping the back quiet and strong.",
+        cues: ["Soft knees", "Hips back", "Weights stay close"],
+        mistake: "Common mistake: turning it into a squat or rounding hard."
+      },
+      curl: {
+        description: "Keep the upper arm quiet and own the lowering phase.",
+        cues: ["Elbows still", "Full squeeze", "Slow lower"],
+        mistake: "Common mistake: swinging the weight."
+      }
+    };
+
+    function referenceFor(name, mode = "exercise") {
+      const lower = String(name).toLowerCase();
+      let key = mode === "stretch" ? "stretch" : "default";
+      if (/carry|farmer|hold/.test(lower)) key = "carry";
+      if (/plank|dead bug|core/.test(lower)) key = "plank";
+      if (/row|pull-apart|face pull|lat/.test(lower)) key = "row";
+      if (/press|push|bench|triceps|extension/.test(lower)) key = "press";
+      if (/squat|lunge|split/.test(lower)) key = "squat";
+      if (/rdl|hinge|deadlift/.test(lower)) key = "hinge";
+      if (/curl|forearm/.test(lower)) key = "curl";
+      if (/stretch|breath|mobility|circles|walk|walking|hydrate/.test(lower)) key = "stretch";
+      return referenceFallbacks[key] || referenceFallbacks.default;
+    }
+
+    function currentReferenceTarget() {
+      const day = selectedDay();
+      if (workoutModeState === "warmup") return { name: parseStepText(day.warmup[warmupIndex] || "Warm-up").name, mode: "stretch" };
+      if (workoutModeState === "cooldown") return { name: parseStepText(day.cooldown[cooldownIndex] || "Cool-down").name, mode: "stretch" };
+      const { rows } = getStepDetails();
+      return { name: rows.map(item => item.row[1]).join(" + ") || day.title, mode: "exercise" };
+    }
+
+    function showReference() {
+      const target = currentReferenceTarget();
+      const info = referenceFor(target.name, target.mode);
+      els.referenceTitle.textContent = target.name;
+      els.referenceDescription.textContent = info.description;
+      els.referenceCues.innerHTML = info.cues.map(cue => `<li>${cue}</li>`).join("");
+      els.referenceMistake.textContent = info.mistake;
+      els.referenceModal.hidden = false;
+    }
+
+    function hideReference() {
+      els.referenceModal.hidden = true;
+    }
+
     function startTimerIfStopped() {
       if (timer) return;
       timer = setInterval(tickTimer, 1000);
@@ -1745,6 +2088,57 @@ Log any wins."></textarea>
       const { day, sequence, activeIndex, step, rows } = getStepDetails();
       const savedSets = getSavedSets();
       els.wmWorkoutTitle.textContent = day.title;
+      els.wmComplete.classList.remove("active");
+      els.wmRoundDetails.innerHTML = "";
+      els.wmForm.classList.toggle("wm-hidden", workoutModeState === "rest" || workoutModeState === "complete" || workoutModeState === "finished");
+      els.wmDone.classList.add("wm-hidden");
+      els.wmNext.classList.add("wm-hidden");
+      els.wmReady.classList.add("wm-hidden");
+      els.wmRestState.classList.add("wm-hidden");
+      els.wmSkip.classList.toggle("wm-hidden", workoutModeState !== "rest" && workoutModeState !== "warmup" && workoutModeState !== "cooldown");
+      els.wmPause.classList.toggle("wm-hidden", workoutModeState === "warmup" || workoutModeState === "cooldown" || workoutModeState === "finished");
+
+      if (workoutModeState === "warmup") {
+        const parsed = parseStepText(day.warmup[warmupIndex] || "Warm-up");
+        els.wmModeLabel.textContent = "Warm-Up";
+        els.wmPrimaryLabel.textContent = "Get Ready";
+        els.wmExercise.textContent = parsed.name;
+        els.wmSet.textContent = `${warmupIndex + 1}/${Math.max(day.warmup.length, 1)}`;
+        els.wmReps.textContent = parsed.target.toUpperCase();
+        els.wmProgress.textContent = `Warm-up ${warmupIndex + 1} of ${day.warmup.length}`;
+        els.wmNext.textContent = "NEXT";
+        els.wmNext.classList.remove("wm-hidden");
+        updateWorkoutTimerDisplays(sessionElapsed);
+        return;
+      }
+
+      if (workoutModeState === "cooldown") {
+        const parsed = parseStepText(day.cooldown[cooldownIndex] || "Cool-down");
+        els.wmModeLabel.textContent = "Cool-Down";
+        els.wmPrimaryLabel.textContent = "Stretch";
+        els.wmExercise.textContent = parsed.name;
+        els.wmSet.textContent = `${cooldownIndex + 1}/${Math.max(day.cooldown.length, 1)}`;
+        els.wmReps.textContent = parsed.target.toUpperCase();
+        els.wmProgress.textContent = `Cool-down ${cooldownIndex + 1} of ${day.cooldown.length}`;
+        els.wmNext.textContent = cooldownIndex >= day.cooldown.length - 1 ? "FINISH" : "NEXT";
+        els.wmNext.classList.remove("wm-hidden");
+        updateWorkoutTimerDisplays(sessionElapsed);
+        return;
+      }
+
+      if (workoutModeState === "finished") {
+        els.wmModeLabel.textContent = "Workout Complete";
+        els.wmPrimaryLabel.textContent = "Done";
+        els.wmExercise.textContent = "FINISHED";
+        els.wmSet.textContent = "DONE";
+        els.wmReps.textContent = "RECOVER";
+        els.wmProgress.textContent = "Return to dashboard when ready";
+        els.wmNext.textContent = "DASHBOARD";
+        els.wmNext.classList.remove("wm-hidden");
+        updateWorkoutTimerDisplays(sessionElapsed);
+        return;
+      }
+
       if (workoutModeState === "complete" || isWorkoutComplete(sequence, savedSets)) {
         workoutModeState = "complete";
         els.wmComplete.classList.add("active");
@@ -1752,24 +2146,31 @@ Log any wins."></textarea>
         updateWorkoutTimerDisplays(sessionElapsed);
         return;
       }
-      els.wmComplete.classList.remove("active");
+
       if (!step || !rows.length) {
+        els.wmModeLabel.textContent = "Protected Day";
         els.wmExercise.textContent = "Protected Day";
         els.wmReps.textContent = "OFF";
         els.wmSet.textContent = "--";
         els.wmProgress.textContent = "No lifting scheduled";
+        els.wmNext.textContent = "NEXT";
+        els.wmNext.classList.remove("wm-hidden");
         return;
       }
-      const exerciseNames = rows.map(item => item.row[1]).join(" + ");
-      const repTargets = rows.map(item => item.row[3]).join(" / ");
+
       const setCounts = rows.map(item => Number(item.row[2]) || 1);
       const setTotal = Math.max(...setCounts);
-      els.wmExercise.textContent = exerciseNames;
-      els.wmReps.textContent = workoutModeState === "rest" ? "BREATHE" : repTargets;
+      const blocks = rows.map(item => item.row[0]).join(" + ");
+      els.wmExercise.textContent = `${blocks} // ROUND ${step.round + 1}`;
+      els.wmReps.textContent = workoutModeState === "rest" ? "BREATHE" : rows.length > 1 ? "SEE MOVES" : rows[0].row[3];
       els.wmSet.textContent = `${step.round + 1}/${setTotal}`;
       els.wmProgress.textContent = `Step ${activeIndex + 1} of ${sequence.length}`;
+      els.wmRoundDetails.innerHTML = rows.map((item, index) => {
+        const [, exercise, , reps] = item.row;
+        return `<div class="wm-move-card"><span>${letterForIndex(index)}:</span><strong>${exercise}</strong><span>Target: ${reps}</span></div>`;
+      }).join("");
       els.wmModeLabel.textContent = workoutModeState === "rest" ? "Rest Mode" : "Workout Mode";
-      els.wmPrimaryLabel.textContent = workoutModeState === "rest" ? "Next Exercise" : "Current Exercise";
+      els.wmPrimaryLabel.textContent = workoutModeState === "rest" ? "Next Round" : "Current Round";
       els.wmDone.classList.toggle("wm-hidden", workoutModeState !== "workout");
       els.wmReady.classList.toggle("wm-hidden", workoutModeState !== "rest");
       els.wmRestState.classList.toggle("wm-hidden", workoutModeState !== "rest");
@@ -1781,14 +2182,19 @@ Log any wins."></textarea>
 
     function enterWorkoutMode() {
       const day = selectedDay();
-      if (!day.workout.length) return;
-      const sequence = buildSequence(day);
-      setActiveStepIndex(firstIncompleteStepIndex(sequence, getSavedSets()), sequence);
-      workoutModeState = isWorkoutComplete(sequence) ? "complete" : "workout";
+      warmupIndex = 0;
+      cooldownIndex = 0;
       document.querySelector(".app").classList.add("workout-mode-active");
       els.wmPause.textContent = "Pause";
       setTimerMode("session");
+      ensureAudioContext();
       startTimerIfStopped();
+      workoutModeState = day.warmup.length ? "warmup" : day.workout.length ? "workout" : "cooldown";
+      if (day.workout.length) {
+        const sequence = buildSequence(day);
+        setActiveStepIndex(firstIncompleteStepIndex(sequence, getSavedSets()), sequence);
+        if (!day.warmup.length && isWorkoutComplete(sequence)) workoutModeState = "complete";
+      }
       renderWorkoutMode();
     }
 
@@ -1799,6 +2205,41 @@ Log any wins."></textarea>
       els.wmPause.textContent = "Pause";
       renderWorkout();
       setTimerMode("session");
+    }
+
+    function advanceWarmupOrCooldown() {
+      const day = selectedDay();
+      if (workoutModeState === "warmup") {
+        if (warmupIndex < day.warmup.length - 1) {
+          warmupIndex += 1;
+        } else if (day.workout.length) {
+          workoutModeState = isWorkoutComplete(buildSequence(day), getSavedSets()) ? "complete" : "workout";
+          setTimerMode("session");
+          startTimerIfStopped();
+        } else {
+          workoutModeState = day.cooldown.length ? "cooldown" : "finished";
+        }
+        renderWorkoutMode();
+        return;
+      }
+      if (workoutModeState === "cooldown") {
+        if (cooldownIndex < day.cooldown.length - 1) {
+          cooldownIndex += 1;
+        } else {
+          workoutModeState = "finished";
+          stopTimer();
+        }
+        renderWorkoutMode();
+        return;
+      }
+      if (workoutModeState === "finished") exitWorkoutMode();
+    }
+
+    function startCooldown() {
+      cooldownIndex = 0;
+      els.wmComplete.classList.remove("active");
+      workoutModeState = selectedDay().cooldown.length ? "cooldown" : "finished";
+      renderWorkoutMode();
     }
 
     function completeWorkoutModeStep() {
@@ -1865,12 +2306,14 @@ Log any wins."></textarea>
       const sequence = buildSequence(day);
       const activeIndex = getActiveStepIndex(sequence);
       const active = sequence[activeIndex];
+      els.todayDay.textContent = day.weekday.toUpperCase();
       els.workoutTitle.textContent = `${day.weekday.toUpperCase()} - ${day.title}`;
       els.focusText.textContent = day.focus;
       els.targetTime.textContent = day.target;
       els.startWorkoutName.textContent = day.title;
       els.startWorkoutTime.textContent = day.target;
       els.startWorkoutStreak.textContent = "1 SESSION";
+      renderList(els.homeWarmupList, day.warmup);
       renderList(els.warmupList, day.warmup);
       renderList(els.cooldownList, day.cooldown);
       renderMuscleMatrix();
@@ -2010,7 +2453,11 @@ Log any wins."></textarea>
     }
 
     function ensureAudioContext() {
-      if (!sfxEnabled || audioContext) return audioContext;
+      if (!sfxEnabled) return audioContext;
+      if (audioContext) {
+        if (audioContext.state === "suspended") audioContext.resume().catch(() => {});
+        return audioContext;
+      }
       const AudioCtor = window.AudioContext || window.webkitAudioContext;
       if (!AudioCtor) return null;
       try {
@@ -2113,6 +2560,7 @@ Log any wins."></textarea>
       els.sfxToggle.textContent = sfxEnabled ? "SFX On" : "SFX Off";
       els.sfxToggle.setAttribute("aria-pressed", String(sfxEnabled));
       els.sfxToggle.classList.toggle("utility-on", sfxEnabled);
+      if (els.wmAudioNote) els.wmAudioNote.textContent = sfxEnabled ? "SFX armed" : "SFX need one tap first";
     }
 
     function toggleSfx() {
@@ -2267,18 +2715,35 @@ Log any wins."></textarea>
     });
     document.getElementById("logWorkout").addEventListener("click", logWorkoutHistory);
     els.startWorkout.addEventListener("click", enterWorkoutMode);
+    els.homeStartWorkout.addEventListener("click", enterWorkoutMode);
+    els.detailsToggle.addEventListener("click", () => {
+      const app = document.querySelector(".app");
+      app.classList.toggle("details-open");
+      const open = app.classList.contains("details-open");
+      els.detailsToggle.textContent = open ? "Hide Details" : "Details";
+      els.detailsToggle.setAttribute("aria-pressed", String(open));
+    });
     els.startWorkoutPanel.addEventListener("click", enterWorkoutMode);
     els.wmDone.addEventListener("click", completeWorkoutModeStep);
+    els.wmNext.addEventListener("click", advanceWarmupOrCooldown);
     els.wmReady.addEventListener("click", readyForNextSet);
-    els.wmSkip.addEventListener("click", readyForNextSet);
+    els.wmSkip.addEventListener("click", () => {
+      if (workoutModeState === "warmup" || workoutModeState === "cooldown") {
+        advanceWarmupOrCooldown();
+      } else {
+        readyForNextSet();
+      }
+    });
     els.wmPause.addEventListener("click", pauseWorkoutModeTimer);
     els.wmExit.addEventListener("click", exitWorkoutMode);
     els.wmReturnDashboard.addEventListener("click", exitWorkoutMode);
+    els.wmStartCooldown.addEventListener("click", startCooldown);
+    els.wmForm.addEventListener("click", showReference);
     els.wmLogWorkout.addEventListener("click", () => {
       logWorkoutHistory();
-      exitWorkoutMode();
     });
     document.getElementById("closeRecovery").addEventListener("click", hideRecoveryProtocol);
+    document.getElementById("closeReference").addEventListener("click", hideReference);
     document.getElementById("dadMode").addEventListener("click", showDadMode);
     document.getElementById("resumeDad").addEventListener("click", hideDadMode);
     els.sfxToggle.addEventListener("click", toggleSfx);
@@ -2296,11 +2761,12 @@ Log any wins."></textarea>
     function initEq() {
       const eq = document.getElementById("eq");
       eq.innerHTML = Array.from({ length: 18 }, () => "<span></span>").join("");
-      setInterval(() => {
+      eqInterval = setInterval(() => {
+        if (workoutModeState !== "dashboard") return;
         eq.querySelectorAll("span").forEach(bar => {
           bar.style.height = `${18 + Math.random() * 78}%`;
         });
-      }, 200);
+      }, 280);
     }
 
     function initPwa() {
@@ -2314,7 +2780,9 @@ Log any wins."></textarea>
     function initClock() {
       const clock = document.getElementById("clock");
       const update = () => {
-        clock.textContent = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+        const now = new Date();
+        clock.textContent = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+        if (els.wmClock) els.wmClock.textContent = now.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
       };
       update();
       setInterval(update, 1000);
